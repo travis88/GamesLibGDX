@@ -37,6 +37,16 @@ public class GameScreen extends ScreenAdapter {
     private Texture flowerBottom;
     private Texture flowerTop;
     private Texture flappeeTexture;
+    
+    private FlappeeBeeGame flappeeBeeGame = new FlappeeBeeGame(); 
+
+    public GameScreen() {
+        flappeeBeeGame.getAssetManager().load("bg.png", Texture.class);
+        flappeeBeeGame.getAssetManager().load("flowerBottom.png", Texture.class);
+        flappeeBeeGame.getAssetManager().load("flowerTop.png", Texture.class);
+        flappeeBeeGame.getAssetManager().load("bee.png", Texture.class);
+        flappeeBeeGame.getAssetManager().finishLoading();
+    }
 
     @Override
     public void resize(int width, int height) {
@@ -56,13 +66,13 @@ public class GameScreen extends ScreenAdapter {
         shapeRenderer = new ShapeRenderer();
         batch = new SpriteBatch();
 
-        flappeeTexture = new Texture(Gdx.files.internal("bee.png"));
+        flappeeTexture = flappeeBeeGame.getAssetManager().get("bee.png");
         flappee = new Flappee(flappeeTexture);
         flappee.setPosition(WORLD_WIDTH / 4, WORLD_HEIGHT / 2);
 
-        background = new Texture(Gdx.files.internal("bg.png"));
-        flowerBottom = new Texture(Gdx.files.internal("flowerBottom.png"));
-        flowerTop = new Texture(Gdx.files.internal("flowerTop.png"));
+        background = flappeeBeeGame.getAssetManager().get("bg.png");
+        flowerBottom = flappeeBeeGame.getAssetManager().get("flowerBottom.png");
+        flowerTop = flappeeBeeGame.getAssetManager().get("flowerTop.png");
 
     }
 

@@ -7,10 +7,12 @@ public class Flappee {
     public static final float COLLISION_RADIUS = 24F;
     private final Circle collisionCircle;
 
+    public Circle getCollisionCircle() { return collisionCircle; }
+
     private float x = 0;
     private float y = 0;
 
-    private static final float DIVE_ACCEL = 0.3F;
+    private static final float DIVE_ACCEL = 0.2F;
     private static final float FLY_ACCEL = 5F;
     private float ySpeed = 0;
 

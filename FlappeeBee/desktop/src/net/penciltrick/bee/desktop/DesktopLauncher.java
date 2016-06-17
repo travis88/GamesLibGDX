@@ -8,8 +8,8 @@ import net.penciltrick.bee.GameScreen;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.height = GameScreen.WORLD_HEIGHT;
-		config.width = GameScreen.WORLD_WIDTH;
+//		config.height = 320;
+//		config.width = 240;
 		config.title = "FlappeBee";
 		new LwjglApplication(new FlappeeBeeGame(), config);
 	}

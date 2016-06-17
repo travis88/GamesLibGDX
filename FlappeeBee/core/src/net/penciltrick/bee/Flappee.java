@@ -6,14 +6,11 @@ import com.badlogic.gdx.math.Circle;
 public class Flappee {
     public static final float COLLISION_RADIUS = 24F;
     private final Circle collisionCircle;
-
-    public Circle getCollisionCircle() { return collisionCircle; }
+    private static final float DIVE_ACCEL = 0.30F;
+    private static final float FLY_ACCEL = 5F;
 
     private float x = 0;
     private float y = 0;
-
-    private static final float DIVE_ACCEL = 0.2F;
-    private static final float FLY_ACCEL = 5F;
     private float ySpeed = 0;
 
     public Flappee() {
@@ -27,6 +24,8 @@ public class Flappee {
     public float getY() {
         return y;
     }
+
+    public Circle getCollisionCircle() { return collisionCircle; }
 
     public void drawDebug(ShapeRenderer shapeRenderer) {
         shapeRenderer.circle(collisionCircle.x, collisionCircle.y, collisionCircle.radius);
@@ -43,7 +42,7 @@ public class Flappee {
         collisionCircle.setY(y);
     }
 
-    public void update() {
+    public void update(float delta) {
         ySpeed -= DIVE_ACCEL;
         setPosition(x, y + ySpeed);
     }

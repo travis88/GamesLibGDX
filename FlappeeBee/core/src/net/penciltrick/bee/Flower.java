@@ -12,7 +12,7 @@ public class Flower {
     private static final float COLLISION_CIRCLE_RADIUS = 33F;
     private static final float MAX_SPEED_PER_SECOND = 100F;
     public static final float WIDTH = COLLISION_CIRCLE_RADIUS * 2;
-    public static final float GAP_BEETWEEN_FLOWERS = 200F;
+
     private static final float HEIGHT_OFFSET = -400F;
     private static final float DISTANCE_BETWEEN_FLOOR_AND_CEILING = 225F;
 

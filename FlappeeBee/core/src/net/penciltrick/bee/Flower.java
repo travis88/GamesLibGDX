@@ -1,5 +1,7 @@
 package net.penciltrick.bee;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
@@ -25,11 +27,12 @@ public class Flower {
     private float y = 0;
     private boolean pointClaimed = false;
 
-    public float getX() {
-        return x;
-    }
+    private final Texture floorTexture;
+    private final Texture ceilingTexture;
 
-    public Flower() {
+    public Flower(Texture floorTexture, Texture ceilingTexture) {
+        this.floorTexture = floorTexture;
+        this.ceilingTexture = ceilingTexture;
         this.y = MathUtils.random(HEIGHT_OFFSET);
         this.floorCollisionRectangle = new Rectangle(x, y, COLLISION_RECTANGLE_WIDTH, COLLISION_RECTANGLE_HEIGHT);
         this.floorCollisionCircle = new Circle(x + floorCollisionRectangle.width, y + floorCollisionRectangle.height, COLLISION_CIRCLE_RADIUS);
@@ -37,6 +40,25 @@ public class Flower {
         this.ceilingCollisionRectangle = new Rectangle(x, floorCollisionCircle.y + DISTANCE_BETWEEN_FLOOR_AND_CEILING, COLLISION_RECTANGLE_WIDTH, COLLISION_RECTANGLE_HEIGHT);
         this.ceilingCollisionCircle = new Circle(x + ceilingCollisionRectangle.width / 2, ceilingCollisionRectangle.y, COLLISION_CIRCLE_RADIUS);
     }
+
+    public void draw(SpriteBatch batch) {
+        drawFloorFlower(batch);
+        drawCeilingFlower(batch);
+    }
+
+    private void drawFloorFlower(SpriteBatch batch) {
+        float textureX = floorCollisionCircle.x - floorTexture.getWidth() / 2;
+        float textureY = floorCollisionRectangle.getY() + COLLISION_CIRCLE_RADIUS;
+        batch.draw(floorTexture, textureX, textureY);
+    }
+
+    private void drawCeilingFlower(SpriteBatch batch) {
+        float textureX = ceilingCollisionCircle.x - ceilingTexture.getWidth() / 2;
+        float textureY = ceilingCollisionRectangle.getY() - COLLISION_CIRCLE_RADIUS;
+        batch.draw(ceilingTexture, textureX, textureY);
+    }
+
+    public float getX() { return x; }
 
     public void setPosition(float x) {
         this.x = x;

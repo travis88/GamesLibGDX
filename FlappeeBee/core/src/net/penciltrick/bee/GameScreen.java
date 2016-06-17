@@ -34,6 +34,9 @@ public class GameScreen extends ScreenAdapter {
     private int score = 0;
 
     private Texture background;
+    private Texture flowerBottom;
+    private Texture flowerTop;
+    private Texture flappeeTexture;
 
     @Override
     public void resize(int width, int height) {
@@ -53,9 +56,14 @@ public class GameScreen extends ScreenAdapter {
         shapeRenderer = new ShapeRenderer();
         batch = new SpriteBatch();
 
-        flappee = new Flappee();
+        flappeeTexture = new Texture(Gdx.files.internal("bee.png"));
+        flappee = new Flappee(flappeeTexture);
         flappee.setPosition(WORLD_WIDTH / 4, WORLD_HEIGHT / 2);
+
         background = new Texture(Gdx.files.internal("bg.png"));
+        flowerBottom = new Texture(Gdx.files.internal("flowerBottom.png"));
+        flowerTop = new Texture(Gdx.files.internal("flowerTop.png"));
+
     }
 
     @Override
@@ -76,6 +84,8 @@ public class GameScreen extends ScreenAdapter {
         batch.setTransformMatrix(camera.view);
         batch.begin();
         batch.draw(background, 0, 0);
+        drawFlowers();
+        flappee.draw(batch);
         drawScore();
         batch.end();
     }
@@ -95,6 +105,12 @@ public class GameScreen extends ScreenAdapter {
         }
         flappee.drawDebug(shapeRenderer);
         shapeRenderer.end();
+    }
+
+    private void drawFlowers() {
+        for (Flower flower : flowers) {
+            flower.draw(batch);
+        }
     }
 
     private void update(float delta) {
@@ -146,6 +162,7 @@ public class GameScreen extends ScreenAdapter {
     private void blockFlappeeLeavingTheWorld() {
         flappee.setPosition(flappee.getX(), MathUtils.clamp(flappee.getY(), 0, WORLD_HEIGHT));
 //        if (flappee.getY() == 0) { restart(); }
+//        if (flappee.getY() < 0) { flappee.setPosition(WORLD_WIDTH / 4, 0); }
     }
 
     private void checkIfNewFlowerIsNeeded() {
@@ -160,7 +177,7 @@ public class GameScreen extends ScreenAdapter {
     }
 
     private void createNewFlower() {
-        Flower newFlower = new Flower();
+        Flower newFlower = new Flower(flowerBottom, flowerTop);
         newFlower.setPosition(WORLD_WIDTH + Flower.WIDTH);
         flowers.add(newFlower);
     }

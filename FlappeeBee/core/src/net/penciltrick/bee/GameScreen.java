@@ -171,8 +171,6 @@ public class GameScreen extends ScreenAdapter {
 
     private void blockFlappeeLeavingTheWorld() {
         flappee.setPosition(flappee.getX(), MathUtils.clamp(flappee.getY(), 0, WORLD_HEIGHT));
-//        if (flappee.getY() == 0) { restart(); }
-//        if (flappee.getY() < 0) { flappee.setPosition(WORLD_WIDTH / 4, 0); }
     }
 
     private void checkIfNewFlowerIsNeeded() {
